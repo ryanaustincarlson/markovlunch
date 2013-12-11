@@ -8,8 +8,9 @@ class TestLuncherPreferences(unittest.TestCase):
         self.luncherprefs = LuncherPreferences("ryan")
 
     def test_add_over_100(self):
-        self.luncherprefs.update_preference("pizza", 50)
-        self.luncherprefs.update_preference("cafe", 60)
+        self.luncherprefs.update("pizza", 50)
+        self.luncherprefs.update("cafe", 60)
+        self.luncherprefs.normalize()
 
         self.assertEqual(sum(self.luncherprefs.preferences.values()), 100)
         self.assertEqual(round(self.luncherprefs.preferences["pizza"]), 45)
