@@ -44,20 +44,25 @@ def read_history(filename):
             history.append(visit)
     return history
 
-def read_luncher_prefs(filenames):
+def read_luncher_prefs(filename):
+    name = os.path.basename(filename).replace(".prefs", "")
+    prefs = LuncherPreferences(name)
+    with open(filename) as f:
+        for line in f:
+            line = line.strip()
+            if line.startswith('#'):
+                continue
+
+            weight, name = line.split(',')
+            prefs.update(name, weight)
+    prefs.normalize()
+    return prefs
+
+def read_lunchers_prefs(filenames):
     lunchers_preferences = []
     for filename in filenames:
-        name = os.path.basename(filename).replace(".prefs", "")
-        prefs = LuncherPreferences(name)
-        with open(filename) as f:
-            for line in f:
-                line = line.strip()
-                if line.startswith('#'):
-                    continue
 
-                weight, name = line.split(',')
-                prefs.update(name, weight)
-        prefs.normalize()
+        prefs = read_luncher_prefs(filename)
         lunchers_preferences.append(prefs)
 
     return lunchers_preferences
@@ -65,7 +70,7 @@ def read_luncher_prefs(filenames):
 def load_files(places_filename, history_filename, luncher_prefs_filenames):
     places = read_places(places_filename)
     history = read_history(history_filename)
-    lunchers_preferences = read_luncher_prefs(luncher_prefs_filenames)
+    lunchers_preferences = read_lunchers_prefs(luncher_prefs_filenames)
 
     # check that places in the history and user prefs are known PLACES
     # otherwise bad things could happen
