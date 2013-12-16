@@ -33,7 +33,7 @@ def read_history(filename):
             if line.startswith('#'):
                 continue
 
-            name, date = line.split(',')
+            date, name = line.split(',')
             visit = LunchVisit(name, date)
             history.append(visit)
     return history
