@@ -11,7 +11,8 @@ class LunchVisit:
 
     def compute_discount(self):
 
-        # FIXME this could be a thousand times smarter..
+        # FIXME this could be a thousand times smarter.. and more compact, but
+        #       right now it's very transparent what's happening
         days_since = (datetime.now() - self.date).days
         if days_since <= 7:
             self.discount = 0
