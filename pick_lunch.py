@@ -9,6 +9,7 @@ from LunchVisit import LunchVisit
 from LuncherPreferences import LuncherPreferences
 
 def read_places(filename):
+    placenames = {}
     places = []
     with open(filename) as f:
         for line in f:
@@ -19,6 +20,11 @@ def read_places(filename):
             fields = line.split(',')
             name = fields[0]
             tags = fields[1:]
+
+            if name in placenames:
+                continue
+            placenames[name] = True
+
             place = LunchPlace(name)
             for tag in tags:
                 place.add_tag(tag)
