@@ -55,7 +55,7 @@ def read_luncher_prefs(filenames):
                 if line.startswith('#'):
                     continue
 
-                name, weight = line.split(',')
+                weight, name = line.split(',')
                 prefs.update(name, weight)
         prefs.normalize()
         lunchers_preferences.append(prefs)
