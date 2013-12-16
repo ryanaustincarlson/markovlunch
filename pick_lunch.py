@@ -29,6 +29,7 @@ def read_places(filename):
             for tag in tags:
                 place.add_tag(tag)
             places.append(place)
+    sys.stderr.write("Loaded %s\n" % filename)
     return places
 
 def read_history(filename):
@@ -42,6 +43,7 @@ def read_history(filename):
             date, name = line.split(',')
             visit = LunchVisit(name, date)
             history.append(visit)
+    sys.stderr.write("Loaded %s\n" % filename)
     return history
 
 def read_luncher_prefs(filename):
@@ -56,6 +58,7 @@ def read_luncher_prefs(filename):
             weight, name = line.split(',')
             prefs.update(name, weight)
     prefs.normalize()
+    sys.stderr.write("Loaded %s\n" % filename)
     return prefs
 
 def read_lunchers_prefs(filenames):
@@ -139,7 +142,8 @@ def main(args):
 
 
     # time to pick lunch!
-    print pick_my_lunch(probabilities)
+    selection = pick_my_lunch(probabilities)
+    print "==> " + selection
     
     return 0
 
