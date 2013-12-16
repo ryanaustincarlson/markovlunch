@@ -2,7 +2,7 @@
 
 import sys, os, random
 
-from pprint import pprint
+from pprint import pprint, pformat
 
 from LunchPlace import LunchPlace
 from LunchVisit import LunchVisit
@@ -140,6 +140,9 @@ def main(args):
     for place in probabilities:
         probabilities[place] = probabilities[place] * 100 / total_unnormalized_probs
 
+    sys.stderr.write("\nProbabilities:\n")
+    probabilities_list = sorted([(round(val, 2), key) for key,val in probabilities.iteritems()], reverse=True)
+    sys.stderr.write(pformat(probabilities_list) + "\n\n")
 
     # time to pick lunch!
     selection = pick_my_lunch(probabilities)
