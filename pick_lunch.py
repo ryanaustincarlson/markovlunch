@@ -130,7 +130,7 @@ def main(args):
         most_recent_visit = None
         for visit in history:
             if visit.place != place.name: continue
-            if most_recent_visit is None or most_recent_visit < visit.date:
+            if most_recent_visit is None or most_recent_visit.date < visit.date:
                 most_recent_visit = visit
         if most_recent_visit is not None:
             probabilities[place.name] *= most_recent_visit.discount
